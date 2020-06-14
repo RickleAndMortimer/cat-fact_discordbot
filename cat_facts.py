@@ -1,9 +1,14 @@
 import requests
-
-url = "https://cat-fact.herokuapp.com/facts/random/"
+import random
+import json
+url = "https://cat-fact.herokuapp.com/facts"
+requestNo = 50
+random.seed()
 #sends request for a catfact, receives a response
-def reqFact():
-    fact = requests.request("GET", url)
-    fact_data = data.json()
-    return data[0].text
-    
+def requestFacts():
+    facts = requests.get(url, data = {'amount': requestNo})
+    return json.loads(facts.text)
+def pickFact(data):
+    rand = random.randint(0, requestNo-1)
+    return data['all'][rand]['text']
+pickFact(requestFacts())

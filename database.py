@@ -1,5 +1,5 @@
 import psycopg2
-##PostgreSQL connection info
+##PostgreSQL connection info (might want to make an ini file later on)
 host = "localhost"
 user = "postgres"
 database = "cat_clients"
@@ -8,22 +8,38 @@ password = "cupcakes29"
 ##connects to postgreSQL server
 conn = psycopg2.connect(host=host, database=database, user=user, password=password)
 ##SQL commands
-#executes PostgreSQL commands
-def __executeCommand(command):
-    cur = conn.cursor() 
-    return cur.execute(command)
+#executes SELECT commands
+def __selectCommand(command):
+    cur = conn.cursor()
+    cur.execute(command)
+    results = cur.fetchone()
+    cur.close()
+    return results
+#executes commands that add/remove user ids
+def __modifyCommand(command, userID):
+    cur = conn.cursor()
+    cur.execute(command, [userID])
+    conn.commit()
+    cur.close() 
 #finds user in table
 def __findUser(userID):
-    if (__executeCommand("SELECT userID FROM users WHERE userID = {$0.userID};".format(userID):
-        return true
+    results = __selectCommand("SELECT userid FROM users WHERE userid = {}".format(userID))
+    if (results is None):
+        return False
     else:
-        return false
-#lists users in 
+        return True
+#lists users in table
+def listUsers():
+    cur = conn.cursor()
+    cur.execute("SELECT userid FROM users")
+    results = cur.fetchall()
+    cur.close()
+    return results
 #deletes userID in the table
 def deleteUser(userID):
     exists = __findUser(userID)
     if (exists):
-        __executeCommand("DELETE FROM users WHERE userID = {$0.userID};".format(userID))
+        __modifyCommand("DELETE FROM users WHERE userid = %s", (userID))
         return 1
     else:
         return -1
@@ -31,9 +47,7 @@ def deleteUser(userID):
 def addUser(userID):
     exists = __findUser(userID)
     if (not exists):
-        __executeCommand("INSERT INTO users (userID) VALUES ($0.userID);".format(userID))
+        __modifyCommand("INSERT INTO users (userid) VALUES (%s)", (userID))
         return 1
     else:
         return -1
-#test
-executeCommand(connect(host, user, database, port, password), "SELECT version()")
