@@ -1,7 +1,7 @@
 import psycopg2
 import os
 ##PostgreSQL connection info
-host = os.environ['DB_HOST']
+host = 'localhost'
 user = os.environ['DB_USER']
 database = os.environ['DB_NAME']
 port = os.environ['DB_PORT']
