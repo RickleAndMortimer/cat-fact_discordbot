@@ -2,11 +2,12 @@ import discord
 import asyncio
 import logging
 import importlib
+import os
 from discord.ext import commands
 cat_facts = importlib.import_module('cat_facts')
 database = importlib.import_module('database')
 ##constant stuff
-token = 'NzE5NzYzODAwNzM1MDg4NzY4.Xt8KoA.ufoKFOV8XNhYfbsxXAzDx78RuKE'
+token = os.environ['BOT_TOKEN']
 delivery_interval = 60
 ##bot setup
 bot = commands.Bot(command_prefix='!')

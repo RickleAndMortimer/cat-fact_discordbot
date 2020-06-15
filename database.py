@@ -1,10 +1,11 @@
 import psycopg2
-##PostgreSQL connection info (might want to make an ini file later on)
-host = "localhost"
-user = "postgres"
-database = "cat_clients"
-port = "5432"
-password = "cupcakes29"
+import os
+##PostgreSQL connection info
+host = os.environ['DB_HOST']
+user = os.environ['DB_USER']
+database = os.environ['DB_NAME']
+port = os.environ['DB_PORT']
+password = os.environ['DB_PASS']
 ##connects to postgreSQL server
 conn = psycopg2.connect(host=host, database=database, user=user, password=password)
 ##SQL commands
