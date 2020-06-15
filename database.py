@@ -7,7 +7,7 @@ database = os.environ['DB_NAME']
 port = os.environ['DB_PORT']
 password = os.environ['DB_PASS']
 ##connects to postgreSQL server
-conn = psycopg2.connect(host=host, database=database, user=user, password=password)
+conn = psycopg2.connect(dbname=database, user=user, password=password, host=host, port=port)
 ##SQL commands
 #executes SELECT commands
 def __selectCommand(command):
