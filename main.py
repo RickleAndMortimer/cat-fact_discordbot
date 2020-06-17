@@ -31,8 +31,7 @@ async def deliverFacts():
         users = database.listUsers()
         for userID in users:
             user = bot.get_user(userID[0])
-            print(user)
-            await user.send(cat_facts.pickFact(facts))
+            await user.send("**<TODAYS CAT FACT>**" + cat_facts.pickFact(facts))
 ##functions
 #makes sure the command is from a user
 def validateCommand(ctx):
