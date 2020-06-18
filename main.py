@@ -51,24 +51,24 @@ async def list(ctx):
 async def subscribe(ctx):
     if (validateCommand(ctx) == 1):
         user = ctx.author
-        if (database.addUser(user.id) == 1):
-            await user.send("Subscription successful! Enjoy your daily feed of cat facts at 12:00 PM EST")
-        else:
-            await ctx.send("ERROR: You're already subscribed to Crazy Cat Facts!")
+        if (not ctx.guild is None): 
+            if (database.addUser(user.id) == 1):
+                await ctx.send("Subscription successful! Enjoy your daily feed of cat facts at 12:00 PM GMT")
+            else:
+                await ctx.send("ERROR: You're already subscribed to Crazy Cat Facts!")
 @bot.command()
 #unsubscribes user in PostgreSQL database
 async def unsubscribe(ctx):
     if (validateCommand(ctx) == 1):
         user = ctx.author
-        if (ctx.guild is None):
-            if (database.deleteUser(user.id) == 1):
-                await user.send("You have unsubscribed from Crazy Cat Facts :(.")
-            else:
-                await user.send("ERROR: You are not subscribed to Crazy Cat Facts.")
+        if (database.deleteUser(user.id) == 1):
+            await user.send("You have unsubscribed from Daily Cat Facts :(")
         else:
-            await ctx.send("Please unsubscribe through DM'ing the bot.")
+            await user.send("ERROR: You are not subscribed to Daily Cat Facts.")
+@bot.command()
+async def help(ctx):
+    if (validateCommand == 1):
+        await ctx.send("**!subscribe**: subscribes you to receive daily cat facts \n**!subscribe**: unsubscribes you from receiving daily cat facts\n**!help**: lists all the bot commands")
 ##runs the bot
 bot.loop.create_task(deliverFacts())
 bot.run(token)
-
-
