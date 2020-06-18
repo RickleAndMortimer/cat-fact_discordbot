@@ -10,4 +10,4 @@ def requestFacts():
     return json.loads(facts.text)
 def pickFact(data):
     rand = random.randint(0, requestNo-1)
-    return data['all'][rand]['text']
+    return data[rand]['text']
