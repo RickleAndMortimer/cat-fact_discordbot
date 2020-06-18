@@ -65,10 +65,6 @@ async def unsubscribe(ctx):
             await user.send("You have unsubscribed from Daily Cat Facts :(")
         else:
             await user.send("ERROR: You are not subscribed to Daily Cat Facts.")
-@bot.command()
-async def help(ctx):
-    if (validateCommand == 1):
-        await ctx.send("**!subscribe**: subscribes you to receive daily cat facts \n**!subscribe**: unsubscribes you from receiving daily cat facts\n**!help**: lists all the bot commands")
 ##runs the bot
 bot.loop.create_task(deliverFacts())
 bot.run(token)
