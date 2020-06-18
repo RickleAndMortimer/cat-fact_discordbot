@@ -26,6 +26,7 @@ async def deliverFacts():
     await bot.wait_until_ready()
     print("Message Delivery Activated")
     while (not bot.is_closed()):
+        await asyncio.sleep(1)
         now = datetime.now()
         if ( now.hour == 12 and now.minute == 0 and now.second == 0):
             facts = cat_facts.requestFacts()
