@@ -44,9 +44,6 @@ def validateCommand(ctx):
 
 ##commands
 @bot.command()
-async def list(ctx):
-    await ctx.send(database.listUsers())
-@bot.command()
 #registers user to PostgreSQL database
 async def subscribe(ctx):
     if (validateCommand(ctx) == 1):
