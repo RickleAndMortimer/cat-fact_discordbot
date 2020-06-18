@@ -9,7 +9,6 @@ cat_facts = importlib.import_module('cat_facts')
 database = importlib.import_module('database')
 ##constant stuff
 token = os.environ['BOT_TOKEN']
-deliver_time = datetime.datetime()
 ##bot setup
 bot = commands.Bot(command_prefix='!')
 ##logger setup
@@ -27,8 +26,8 @@ async def deliverFacts():
     await bot.wait_until_ready()
     print("Message Delivery Activated")
     while (not bot.is_closed()):
-        now = datetime.now()
-        if ( now.hour == 12 and now.minute == 0 and now.second == 0):
+        now = datetime.now().hour
+        if (now.hour == 12 and now.minute == 0 and now.second == 0 and now.microsecond == 0 ):
             facts = cat_facts.requestFacts()
             users = database.listUsers()
             for userID in users:
