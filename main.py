@@ -25,13 +25,13 @@ async def on_ready():
 async def deliverFacts():
     await bot.wait_until_ready()
     print("Message Delivery Activated")
-    while (not bot.is_closed()):     
-        await asyncio.sleep(delivery_interval)
+    while (not bot.is_closed()):
+        if ()
         facts = cat_facts.requestFacts()
         users = database.listUsers()
         for userID in users:
             user = bot.get_user(userID[0])
-            await user.send("**<TODAYS CAT FACT>**" + cat_facts.pickFact(facts))
+            await user.send("**<TODAYS CAT FACT>**: " + cat_facts.pickFact(facts))
 ##functions
 #makes sure the command is from a user
 def validateCommand(ctx):
@@ -50,7 +50,7 @@ async def subscribe(ctx):
     if (validateCommand(ctx) == 1):
         user = ctx.author
         if (database.addUser(user.id) == 1):
-            await user.send("Subscription successful! Enjoy your daily feed of cat facts at 4:00 PM!")
+            await user.send("Subscription successful! Enjoy your daily feed of cat facts!")
         else:
             await ctx.send("ERROR: You're already subscribed to Crazy Cat Facts!")
 @bot.command()
