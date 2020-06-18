@@ -27,8 +27,8 @@ async def deliverFacts():
     await bot.wait_until_ready()
     print("Message Delivery Activated")
     while (not bot.is_closed()):
-        now = datetime.now().time
-        if ( now.hour == 12 and now.minute == 0 and now.second == 0 and now.microsecond == 0 ):
+        now = datetime.now()
+        if ( now.hour == 12 and now.minute == 0 and now.second == 0):
             facts = cat_facts.requestFacts()
             users = database.listUsers()
             for userID in users:
