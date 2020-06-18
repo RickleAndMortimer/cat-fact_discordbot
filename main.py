@@ -3,12 +3,13 @@ import asyncio
 import logging
 import importlib
 import os
+from datetime import datetime
 from discord.ext import commands
 cat_facts = importlib.import_module('cat_facts')
 database = importlib.import_module('database')
 ##constant stuff
 token = os.environ['BOT_TOKEN']
-delivery_interval = 60
+deliver_time = datetime.datetime()
 ##bot setup
 bot = commands.Bot(command_prefix='!')
 ##logger setup
@@ -25,13 +26,14 @@ async def on_ready():
 async def deliverFacts():
     await bot.wait_until_ready()
     print("Message Delivery Activated")
-    while (not bot.is_closed()):     
-        await asyncio.sleep(delivery_interval)
-        facts = cat_facts.requestFacts()
-        users = database.listUsers()
-        for userID in users:
-            user = bot.get_user(userID[0])
-            await user.send("**<TODAYS CAT FACT>**" + cat_facts.pickFact(facts))
+    while (not bot.is_closed()):
+        now = datetime.now().time
+        if ( now.hour == 12 and now.minute == 0 and now.second == 0 and now.microsecond == 0 ):
+            facts = cat_facts.requestFacts()
+            users = database.listUsers()
+            for userID in users:
+                user = bot.get_user(userID[0])
+                await user.send("**<TODAYS CAT FACT>**: " + cat_facts.pickFact(facts))
 ##functions
 #makes sure the command is from a user
 def validateCommand(ctx):
