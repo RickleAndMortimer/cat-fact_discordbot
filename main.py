@@ -9,7 +9,6 @@ cat_facts = importlib.import_module('cat_facts')
 database = importlib.import_module('database')
 ##constant stuff
 token = os.environ['BOT_TOKEN']
-deliver_time = datetime.datetime()
 ##bot setup
 bot = commands.Bot(command_prefix='!')
 ##logger setup
