@@ -9,6 +9,7 @@ cat_facts = importlib.import_module('cat_facts')
 database = importlib.import_module('database')
 ##constant stuff
 token = os.environ['BOT_TOKEN']
+deliver_time = datetime.datetime()
 ##bot setup
 bot = commands.Bot(command_prefix='!')
 ##logger setup
@@ -26,8 +27,8 @@ async def deliverFacts():
     await bot.wait_until_ready()
     print("Message Delivery Activated")
     while (not bot.is_closed()):
-        now = datetime.now().hour
-        if (now.hour == 12 and now.minute == 0 and now.second == 0 and now.microsecond == 0 ):
+        now = datetime.now()
+        if ( now.hour == 12 and now.minute == 0 and now.second == 0):
             facts = cat_facts.requestFacts()
             users = database.listUsers()
             for userID in users:
@@ -51,7 +52,7 @@ async def subscribe(ctx):
     if (validateCommand(ctx) == 1):
         user = ctx.author
         if (database.addUser(user.id) == 1):
-            await user.send("Subscription successful! Enjoy your daily feed of cat facts at 12:00 PM!")
+            await user.send("Subscription successful! Enjoy your daily feed of cat facts at 12:00 PM EST")
         else:
             await ctx.send("ERROR: You're already subscribed to Crazy Cat Facts!")
 @bot.command()
