@@ -43,7 +43,7 @@ def validateCommand(ctx):
         return 1
 
 ##commands
-@bot.command()
+@bot.command(description = "Subscribes you to Daily Cat Facts")
 #registers user to PostgreSQL database
 async def subscribe(ctx):
     if (validateCommand(ctx) == 1):
@@ -53,7 +53,7 @@ async def subscribe(ctx):
                 await ctx.send("Subscription successful! Enjoy your daily feed of cat facts at 12:00 PM GMT")
             else:
                 await ctx.send("ERROR: You're already subscribed to Crazy Cat Facts!")
-@bot.command()
+@bot.command(description = "Unsubscribes you from Daily Cat Facts")
 #unsubscribes user in PostgreSQL database
 async def unsubscribe(ctx):
     if (validateCommand(ctx) == 1):
